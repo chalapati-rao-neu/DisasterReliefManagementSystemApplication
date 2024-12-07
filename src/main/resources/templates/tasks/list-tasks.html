@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Tasks</title>
+</head>
+<body>
+    <h1>Tasks</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Description</th>
+                <th>Status</th>
+                <th>Volunteer</th>
+                <th>Resource</th>
+                <th>Resource Quantity</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="task : ${tasks}">
+                <td th:text="${task.id}"></td>
+                <td th:text="${task.description}"></td>
+                <td th:text="${task.status}"></td>
+                <td th:text="${task.volunteer.username}"></td>
+                <td th:text="${task.resource.name}"></td>
+                <td th:text="${task.resourceQuantity}"></td>
+				<td>
+				    <a th:href="@{/tasks/edit/{id}(id=${task.id})}">Edit Status</a>
+				</td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

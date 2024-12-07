@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Relief Requests</title>
+    <link rel="stylesheet" href="/css/styles.css"> <!-- Optional CSS -->
+</head>
+<body>
+    <h1>Relief Requests</h1>
+    <a th:href="@{/relief-requests/create}">Create New Request</a>
+    <table border="1" style="width: 100%; margin-top: 20px;">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Requester Name</th>
+                <th>Location</th>
+                <th>Details</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Thymeleaf loop to iterate over 'requests' -->
+            <tr th:each="request : ${requests}">
+                <td th:text="${request.id}">1</td>
+                <td th:text="${request.requesterName}">John Doe</td>
+                <td th:text="${request.location}">New York</td>
+                <td th:text="${request.details}">Need food and water</td>
+                <td th:text="${request.status}">PENDING</td>
+                <td>
+                    <a th:href="@{/relief-requests/edit/{id}(id=${request.id})}">Edit</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

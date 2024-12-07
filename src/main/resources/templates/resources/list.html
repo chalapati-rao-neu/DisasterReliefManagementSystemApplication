@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Resources</title>
+</head>
+<body>
+    <h1>Resources</h1>
+    <a th:href="@{/resources/create}">Add New Resource</a>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Quantity</th>
+                <th>Threshold</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="resource : ${resources}">
+                <td th:text="${resource.id}"></td>
+                <td th:text="${resource.name}"></td>
+                <td th:text="${resource.quantity}"></td>
+                <td th:text="${resource.threshold}"></td>
+                <td>
+                    <a th:href="@{/resources/edit/{id}(id=${resource.id})}">Edit</a> |
+                    <a th:href="@{/resources/delete/{id}(id=${resource.id})}">Delete</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

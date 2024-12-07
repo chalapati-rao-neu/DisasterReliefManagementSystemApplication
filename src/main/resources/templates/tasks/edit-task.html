@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Edit Task Status</title>
+</head>
+<body>
+    <h1>Edit Task Status</h1>
+    <form th:action="@{/tasks/edit/{id}(id=${task.id})}" method="post">
+        <label for="description">Task Description:</label>
+        <p th:text="${task.description}"></p>
+
+        <label for="status">Status:</label>
+        <select id="status" name="status">
+            <option th:each="status : ${statuses}" 
+                    th:value="${status}" 
+                    th:text="${status}" 
+                    th:selected="${status == task.status}">
+            </option>
+        </select><br><br>
+
+        <button type="submit">Update Status</button>
+    </form>
+</body>
+</html>
