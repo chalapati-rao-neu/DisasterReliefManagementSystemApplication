@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Home</title>
+</head>
+<body>
+    <h1>Welcome to Disaster Relief Management</h1>
+
+    <!-- Debugging (Optional) -->
+    <p th:text="'Authenticated user: ' + ${#authentication.name}"></p>
+    <p th:text="'Authorities: ' + ${#authentication.authorities}"></p>
+
+    <h2>Actions</h2>
+    <ul>
+        <!-- ADMIN Actions -->
+        <li th:if="${#authorization.expression('hasAuthority(''ROLE_ADMIN'')')}">
+            <a th:href="@{/users}">Manage Users</a>
+        </li>
+        <li th:if="${#authorization.expression('hasAuthority(''ROLE_ADMIN'')')}">
+            <a th:href="@{/resources}">Manage Resources</a>
+        </li>
+
+        <!-- RELIEF_COORDINATOR Actions -->
+        <li th:if="${#authorization.expression('hasAuthority(''ROLE_RELIEF_COORDINATOR'')')}">
+            <a th:href="@{/relief-requests/pending-requests}">View Pending Relief Requests</a>
+        </li>
+        <li th:if="${#authorization.expression('hasAuthority(''ROLE_RELIEF_COORDINATOR'')')}">
+            <a th:href="@{/tasks/create}">Create Tasks</a>
+        </li>
+
+        <!-- USER Actions -->
+        <li th:if="${#authorization.expression('hasAuthority(''ROLE_USER'')')}">
+            <a th:href="@{/relief-requests/create}">Create Relief Request</a>
+        </li>
+        <li th:if="${#authorization.expression('hasAuthority(''ROLE_USER'')')}">
+            <a th:href="@{/relief-requests/view}">View My Relief Requests</a>
+        </li>
+    </ul>
+</body>
+</html>

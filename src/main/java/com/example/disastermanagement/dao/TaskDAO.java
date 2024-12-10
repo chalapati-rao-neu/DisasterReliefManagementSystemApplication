@@ -39,4 +39,11 @@ public class TaskDAO {
     public void update(Task task) {
         getCurrentSession().merge(task);
     }
+    
+    public List<Task> findByReliefRequestId(Long reliefRequestId) {
+        return getCurrentSession()
+                .createQuery("from Task where reliefRequest.id = :reliefRequestId", Task.class)
+                .setParameter("reliefRequestId", reliefRequestId)
+                .list();
+    }
 }

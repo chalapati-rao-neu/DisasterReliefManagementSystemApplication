@@ -11,4 +11,5 @@ public interface UserDAO {
     void update(User user);        // Uses merge
     void delete(User user);        // Uses remove
     List<User> findUsersByRole(Role role);
+    User findByUsername(String username);
 }

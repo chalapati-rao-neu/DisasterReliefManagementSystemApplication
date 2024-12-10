@@ -4,6 +4,7 @@ public enum Role {
 	
 	ADMIN,
     RELIEF_COORDINATOR,
-    VOLUNTEER
+    VOLUNTEER,
+    USER
 
 }

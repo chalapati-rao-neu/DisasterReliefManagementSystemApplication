@@ -16,7 +16,7 @@ public class TaskController {
     private final ResourceService resourceService;
     private final TaskService taskService;
 
-    @Autowired
+    
     public TaskController(ReliefRequestService reliefRequestService, UserService userService,
                           ResourceService resourceService, TaskService taskService) {
         this.reliefRequestService = reliefRequestService;
@@ -106,6 +106,15 @@ public class TaskController {
         if (task != null) {
             task.setStatus(status); // Update task status
             taskService.updateTask(task); // Persist changes
+            
+         // Check if all tasks for the relief request are completed
+            Long reliefRequestId = task.getReliefRequest().getId();
+            boolean allTasksCompleted = taskService.areAllTasksCompletedForReliefRequest(reliefRequestId);
+
+            if (allTasksCompleted) {
+                // Use the existing updateReliefRequestStatus method
+                reliefRequestService.updateReliefRequestStatus(reliefRequestId, ReliefRequestStatus.FULFILLED);
+            }
         }
         return "redirect:/tasks";
     }

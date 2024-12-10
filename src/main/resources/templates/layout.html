@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Disaster Relief Management</title>
+    <link rel="stylesheet" href="/css/styles.css"> <!-- Add your CSS styles here -->
+</head>
+<body>
+    <!-- Navbar -->
+    <nav>
+        <ul>
+            <li><a th:href="@{/home}">Home</a></li>
+            
+            <!-- Conditional Links Based on Role -->
+            <li th:if="${#authorization.expression('hasAuthority(''ROLE_ADMIN'')')}"><a th:href="@{/users}">Manage Users</a></li>
+            <li th:if="${#authorization.expression('hasAuthority(''ROLE_ADMIN'')')}"><a th:href="@{/resources}">Manage Resources</a></li>
+            <li th:if="${#authorization.expression('hasAuthority(''ROLE_RELIEF_COORDINATOR'')')}"><a th:href="@{/relief-requests/pending-requests}">View Pending Relief Requests</a></li>
+            <li th:if="${#authorization.expression('hasAuthority(''ROLE_RELIEF_COORDINATOR'')')}"><a th:href="@{/tasks/create}">Create Tasks</a></li>
+            <li th:if="${#authorization.expression('hasAuthority(''ROLE_USER'')')}"><a th:href="@{/relief-requests/create}">Create Relief Request</a></li>
+            <li th:if="${#authorization.expression('hasAuthority(''ROLE_USER'')')}"><a th:href="@{/relief-requests/view}">View My Relief Requests</a></li>
+
+            <!-- Logout -->
+            <li><a th:href="@{/logout}">Logout</a></li>
+        </ul>
+    </nav>
+
+    <!-- Content -->
+    <div>
+        <div th:insert="~{::content}"></div> <!-- Placeholder for dynamic content -->
+    </div>
+</body>
+</html>

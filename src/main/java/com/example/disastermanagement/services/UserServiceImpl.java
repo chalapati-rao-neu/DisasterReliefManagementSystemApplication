@@ -1,6 +1,7 @@
 package com.example.disastermanagement.services;
 
 import com.example.disastermanagement.dao.UserDAO;
+
 import com.example.disastermanagement.models.Role;
 import com.example.disastermanagement.models.User;
 import jakarta.transaction.Transactional;
@@ -8,19 +9,27 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 @Service
 public class UserServiceImpl implements UserService {
 
     private final UserDAO userDAO;
+    private final PasswordEncoder passwordEncoder;
 
     
-    public UserServiceImpl(UserDAO userDAO) {
+    @Autowired
+    public UserServiceImpl(UserDAO userDAO, PasswordEncoder passwordEncoder) {
         this.userDAO = userDAO;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
     @Transactional
     public void createUser(User user) {
+    	
+    	// Encrypt password before saving
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userDAO.save(user); // Delegate the save operation to the DAO
     }
 

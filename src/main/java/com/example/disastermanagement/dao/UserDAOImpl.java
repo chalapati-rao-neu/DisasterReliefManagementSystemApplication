@@ -63,4 +63,14 @@ public class UserDAOImpl implements UserDAO {
                 .setParameter("role", role)
                 .list();
     }
+    @Override
+    @Transactional
+    public User findByUsername(String username) {
+        
+            return getCurrentSession()
+            		.createQuery("FROM User WHERE username = :username", User.class)
+                          .setParameter("username", username)
+                          .uniqueResult();
+        
+    }
 }

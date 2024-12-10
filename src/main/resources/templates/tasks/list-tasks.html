@@ -14,6 +14,8 @@
                 <th>Volunteer</th>
                 <th>Resource</th>
                 <th>Resource Quantity</th>
+                <th>Relief Request ID</th> <!-- Add header for Relief Request ID -->
+                <th>Actions</th> <!-- Header for Edit Status -->
             </tr>
         </thead>
         <tbody>
@@ -24,9 +26,10 @@
                 <td th:text="${task.volunteer.username}"></td>
                 <td th:text="${task.resource.name}"></td>
                 <td th:text="${task.resourceQuantity}"></td>
-				<td>
-				    <a th:href="@{/tasks/edit/{id}(id=${task.id})}">Edit Status</a>
-				</td>
+                <td th:text="${task.reliefRequest.id}"></td> <!-- Relief Request ID -->
+                <td>
+                    <a th:href="@{/tasks/edit/{id}(id=${task.id})}">Edit Status</a>
+                </td>
             </tr>
         </tbody>
     </table>

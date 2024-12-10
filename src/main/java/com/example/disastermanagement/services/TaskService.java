@@ -2,6 +2,8 @@ package com.example.disastermanagement.services;
 
 import com.example.disastermanagement.dao.TaskDAO;
 import com.example.disastermanagement.models.Task;
+import com.example.disastermanagement.models.TaskStatus;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,5 +35,10 @@ public class TaskService {
 
     public void updateTask(Task task) {
         taskDAO.update(task);
+    }
+    
+    public boolean areAllTasksCompletedForReliefRequest(Long reliefRequestId) {
+        List<Task> tasks = taskDAO.findByReliefRequestId(reliefRequestId);
+        return tasks.stream().allMatch(task -> task.getStatus() == TaskStatus.COMPLETED);
     }
 }
