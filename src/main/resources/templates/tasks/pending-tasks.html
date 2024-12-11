@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Pending Tasks</title>
+</head>
+<body>
+    <h1>Pending Tasks</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Task ID</th>
+                <th>Relief Request ID</th>
+                <th>Volunteer</th>
+                <th>Resource</th>
+                <th>Quantity</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="task : ${pendingTasks}">
+                <td th:text="${task.id}"></td>
+                <td th:text="${task.reliefRequest.id}"></td>
+                <td th:text="${task.volunteer.username}"></td>
+                <td th:text="${task.resource.name}"></td>
+                <td th:text="${task.resourceQuantity}"></td>
+                <td th:text="${task.status}"></td>
+                <td>
+                    <a th:href="@{/tasks/edit/{id}(id=${task.id})}">Edit</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

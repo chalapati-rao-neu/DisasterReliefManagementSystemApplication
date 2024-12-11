@@ -1,40 +1,56 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
 <head>
     <title>Home</title>
 </head>
 <body>
-    <h1>Welcome to Disaster Relief Management</h1>
+    <div layout:fragment="content">
+        <h1>Welcome to Disaster Relief Management</h1>
 
-    <!-- Debugging (Optional) -->
-    <p th:text="'Authenticated user: ' + ${#authentication.name}"></p>
-    <p th:text="'Authorities: ' + ${#authentication.authorities}"></p>
+        <!-- Debugging (Optional) -->
+        <div>
+            <p th:text="'Authenticated user: ' + ${#authentication.name}"></p>
+            <p th:text="'Authorities: ' + ${#authentication.authorities}"></p>
+        </div>
 
-    <h2>Actions</h2>
-    <ul>
-        <!-- ADMIN Actions -->
-        <li th:if="${#authorization.expression('hasAuthority(''ROLE_ADMIN'')')}">
-            <a th:href="@{/users}">Manage Users</a>
-        </li>
-        <li th:if="${#authorization.expression('hasAuthority(''ROLE_ADMIN'')')}">
-            <a th:href="@{/resources}">Manage Resources</a>
-        </li>
+        <h2>Actions</h2>
+        <ul>
+            <!-- ADMIN Actions -->
+            <li th:if="${#authorization.expression('hasAuthority(''ROLE_ADMIN'')')}">
+                <a th:href="@{/users}">Manage Users</a>
+            </li>
+            <li th:if="${#authorization.expression('hasAuthority(''ROLE_ADMIN'')')}">
+                <a th:href="@{/resources}">Manage Resources</a>
+            </li>
+			<li th:if="${#authorization.expression('hasAuthority(''ROLE_ADMIN'')')}">
+			    <a th:href="@{/relief-requests}">View all Relief requests</a>
+			</li>
 
-        <!-- RELIEF_COORDINATOR Actions -->
-        <li th:if="${#authorization.expression('hasAuthority(''ROLE_RELIEF_COORDINATOR'')')}">
-            <a th:href="@{/relief-requests/pending-requests}">View Pending Relief Requests</a>
-        </li>
-        <li th:if="${#authorization.expression('hasAuthority(''ROLE_RELIEF_COORDINATOR'')')}">
-            <a th:href="@{/tasks/create}">Create Tasks</a>
-        </li>
+            <!-- RELIEF_COORDINATOR Actions -->
+            <li th:if="${#authorization.expression('hasAuthority(''ROLE_RELIEF_COORDINATOR'')')}">
+                <a th:href="@{/tasks/pending-requests}">View Pending Relief Requests</a>
+            </li>
+            <li th:if="${#authorization.expression('hasAuthority(''ROLE_RELIEF_COORDINATOR'')')}">
+                <a th:href="@{/tasks}">View Tasks</a>
+            </li>
+			<li th:if="${#authorization.expression('hasAuthority(''ROLE_RELIEF_COORDINATOR'')')}">
+			    <a th:href="@{/tasks/pending}">View pending Tasks</a>
+		    </li>
 
-        <!-- USER Actions -->
-        <li th:if="${#authorization.expression('hasAuthority(''ROLE_USER'')')}">
-            <a th:href="@{/relief-requests/create}">Create Relief Request</a>
-        </li>
-        <li th:if="${#authorization.expression('hasAuthority(''ROLE_USER'')')}">
-            <a th:href="@{/relief-requests/view}">View My Relief Requests</a>
-        </li>
-    </ul>
+            <!-- USER Actions -->
+            <li th:if="${#authorization.expression('hasAuthority(''ROLE_USER'')')}">
+                <a th:href="@{/relief-requests/create}">Create Relief Request</a>
+            </li>
+            <li th:if="${#authorization.expression('hasAuthority(''ROLE_USER'')')}">
+                <a th:href="@{/relief-requests/view}">View My Relief Requests</a>
+            </li>
+        </ul>
+		
+		<!-- Logout Option -->
+		       <h2>Logout</h2>
+		      <a href="/logout" th:href="@{/logout}">Logout</a>a>
+    </div>
 </body>
 </html>

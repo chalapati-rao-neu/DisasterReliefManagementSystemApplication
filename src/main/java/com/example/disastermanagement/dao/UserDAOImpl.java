@@ -57,6 +57,7 @@ public class UserDAOImpl implements UserDAO {
     }
     
     @Override
+    @Transactional
     public List<User> findUsersByRole(Role role) {
         return getCurrentSession()
                 .createQuery("from User where role = :role", User.class)
@@ -72,5 +73,14 @@ public class UserDAOImpl implements UserDAO {
                           .setParameter("username", username)
                           .uniqueResult();
         
+    }
+    
+    @Override
+    @Transactional
+    public User findByEmail(String email) {
+        return getCurrentSession()
+                .createQuery("FROM User WHERE email = :email", User.class)
+                .setParameter("email", email)
+                .uniqueResult();
     }
 }

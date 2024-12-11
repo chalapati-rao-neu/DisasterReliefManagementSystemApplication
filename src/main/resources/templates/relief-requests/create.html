@@ -8,7 +8,7 @@
     <h1>Create New Relief Request</h1>
     <form th:action="@{/relief-requests/create}" method="post">
         <label for="requesterName">Requester Name:</label><br>
-        <input type="text" id="requesterName" name="requesterName" required><br><br>
+        <input type="text" id="requesterName" name="requesterName" th:value="${#authentication.name}" readonly><br><br>
 
         <label for="location">Location:</label><br>
         <input type="text" id="location" name="location" required><br><br>
@@ -19,3 +19,4 @@
         <button type="submit">Submit Request</button>
     </form>
 </body>
+</html>

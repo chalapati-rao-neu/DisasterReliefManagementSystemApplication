@@ -50,4 +50,14 @@ public class ReliefRequestService {
             reliefRequestDAO.update(existingRequest);
         }
     }
+    
+    @Transactional
+    public void updateReliefRequest(ReliefRequest reliefRequest) {
+        reliefRequestDAO.update(reliefRequest);
+    }
+    
+    @Transactional(readOnly = true)
+    public List<ReliefRequest> getReliefRequestsByRequesterName(String requesterName) {
+        return reliefRequestDAO.findByRequesterName(requesterName);
+    }
 }

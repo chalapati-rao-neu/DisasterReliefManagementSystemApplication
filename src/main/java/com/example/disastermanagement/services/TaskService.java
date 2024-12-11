@@ -41,4 +41,9 @@ public class TaskService {
         List<Task> tasks = taskDAO.findByReliefRequestId(reliefRequestId);
         return tasks.stream().allMatch(task -> task.getStatus() == TaskStatus.COMPLETED);
     }
+    
+    
+    public List<Task> getPendingTasks() {
+        return taskDAO.findByStatus(TaskStatus.PENDING);
+    }
 }

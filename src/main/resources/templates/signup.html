@@ -2,26 +2,47 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Sign Up</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Sign Up</h1>
-    <form th:action="@{/signup}" th:object="${user}" method="post">
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" th:field="*{username}" required>
-        <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span>
-        <br><br>
+    <div class="container">
+        <h2>Sign Up</h2>
 
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" th:field="*{email}" required>
-        <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
-        <br><br>
+        <form th:action="@{/signup}" th:object="${user}" method="post">
+            <div>
+                <label for="username">Username:</label>
+                <input type="text" id="username" th:field="*{username}" required />
+            </div>
+            <br>
+            <div>
+                <label for="email">Email:</label>
+                <input type="email" id="email" th:field="*{email}" required />
+            </div>
+            <br>
+            <div>
+                <label for="password">Password:</label>
+                <input type="password" id="password" th:field="*{password}" required />
+            </div>
+            <br>
+            <button type="submit">Sign Up</button>
+        </form>
 
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" th:field="*{password}" required>
-        <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
-        <br><br>
+        <!-- Error messages -->
+        <p th:if="${error}" th:text="${error}" style="color: red;"></p>
 
-        <button type="submit">Sign Up</button>
-    </form>
+        <p>Already have an account? <a th:href="@{/login}">Log in here</a>.</p>
+    </div>
 </body>
 </html>

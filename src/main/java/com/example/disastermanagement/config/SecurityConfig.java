@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
@@ -32,7 +33,7 @@ public class SecurityConfig {
                 .requestMatchers("/login", "/signup").permitAll()
 
                 // Admin access
-                .requestMatchers("/users/**", "/resources/**").hasRole("ADMIN")
+                .requestMatchers("/users/**", "/resources/**", "/relief-requests").hasRole("ADMIN")
 
                 // Relief Coordinator access
                 .requestMatchers("/relief-requests/pending-requests").hasRole("RELIEF_COORDINATOR")
@@ -53,9 +54,13 @@ public class SecurityConfig {
                 .permitAll()
         )
         .logout(logout -> logout
-                .logoutSuccessUrl("/login?logout")
+                .logoutUrl("/logout")
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout", "GET")) // Allow GET requests
+                .logoutSuccessUrl("/login?logout=true")
+                .invalidateHttpSession(true)
+                .deleteCookies("JSESSIONID")
                 .permitAll()
-        );
+            );
 
         return http.build();
     }

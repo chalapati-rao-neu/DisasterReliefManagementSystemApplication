@@ -12,4 +12,5 @@ public interface UserDAO {
     void delete(User user);        // Uses remove
     List<User> findUsersByRole(Role role);
     User findByUsername(String username);
+    User findByEmail(String email);
 }

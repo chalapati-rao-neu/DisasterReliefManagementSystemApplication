@@ -2,29 +2,44 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Login</title>
-    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Login</h1>
-    <form th:action="@{/login}" method="post">
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required><br><br>
+    <div class="container">
+        <h2>Login</h2>
 
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required><br><br>
+        <form th:action="@{/login}" method="post">
+            <div>
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required />
+            </div>
+            <br>
+            <div>
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required />
+            </div>
+            <br>
+            <button type="submit">Login</button>
+        </form>
 
-        <button type="submit">Login</button>
-    </form>
+        <!-- Error messages -->
+        <p th:if="${error}" th:text="${error}" style="color: red;"></p>
+        <p th:if="${message}" th:text="${message}" style="color: green;"></p>
+		<p th:if="${signupMessage}" th:text="${signupMessage}" style="color: green;"></p>
 
-    <!-- Display errors -->
-    <p th:if="${param.error}" style="color: red;">Invalid username or password</p>
-
-    <!-- Display logout message -->
-    <p th:if="${param.logout}" style="color: green;">You have been logged out successfully.</p>
-
-    <!-- Display signup success message -->
-    <p th:if="${param.signupSuccess}" style="color: green;">Signup successful! Please log in with your credentials.</p>
-
-    <p>Don't have an account? <a th:href="@{/signup}">Sign up here</a></p>
+        <p>Don't have an account? <a th:href="@{/signup}">Sign up here</a>.</p>
+    </div>
 </body>
 </html>

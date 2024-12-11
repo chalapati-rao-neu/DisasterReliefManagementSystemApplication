@@ -31,6 +31,13 @@ public class TaskController {
         model.addAttribute("pendingRequests", reliefRequestService.getPendingRequests());
         return "tasks/pending-requests";
     }
+    
+ // View Pending Tasks
+    @GetMapping("/pending")
+    public String viewPendingTasks(Model model) {
+        model.addAttribute("pendingTasks", taskService.getPendingTasks());
+        return "tasks/pending-tasks";
+    }
 
     // Show Create Task Form
     @GetMapping("/create/{reliefRequestId}")

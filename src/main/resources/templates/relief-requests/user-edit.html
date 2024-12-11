@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Relief Request</title>
+</head>
+<body>
+    <h1>Edit Your Relief Request</h1>
+    <form th:action="@{/relief-requests/user/edit/{id}(id=${request.id})}" method="post">
+        <label for="location">Location:</label><br>
+        <input type="text" id="location" name="location" th:value="${request.location}" required><br><br>
+
+        <label for="details">Details:</label><br>
+        <textarea id="details" name="details" rows="4" th:text="${request.details}" required></textarea><br><br>
+
+        <button type="submit">Update Request</button>
+    </form>
+</body>
+</html>

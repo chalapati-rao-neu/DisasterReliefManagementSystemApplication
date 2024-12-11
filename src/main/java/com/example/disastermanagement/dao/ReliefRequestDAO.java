@@ -93,4 +93,11 @@ public class ReliefRequestDAO {
             delete(reliefRequest);
         }
     }
+    
+    public List<ReliefRequest> findByRequesterName(String requesterName) {
+        return getCurrentSession()
+                .createQuery("from ReliefRequest where requesterName = :requesterName", ReliefRequest.class)
+                .setParameter("requesterName", requesterName)
+                .list();
+    }
 }

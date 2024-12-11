@@ -1,6 +1,8 @@
 package com.example.disastermanagement.dao;
 
 import com.example.disastermanagement.models.Task;
+import com.example.disastermanagement.models.TaskStatus;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +46,13 @@ public class TaskDAO {
         return getCurrentSession()
                 .createQuery("from Task where reliefRequest.id = :reliefRequestId", Task.class)
                 .setParameter("reliefRequestId", reliefRequestId)
+                .list();
+    }
+    
+    public List<Task> findByStatus(TaskStatus status) {
+        return getCurrentSession()
+                .createQuery("from Task where status = :status", Task.class)
+                .setParameter("status", status)
                 .list();
     }
 }

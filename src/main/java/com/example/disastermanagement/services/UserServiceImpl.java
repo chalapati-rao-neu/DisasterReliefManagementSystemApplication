@@ -72,4 +72,16 @@ public class UserServiceImpl implements UserService {
     public List<User> getUsersByRole(Role role) {
         return userDAO.findUsersByRole(role);
     }
+    
+    @Transactional
+    @Override
+    public User getUserByUsername(String username) {
+        return userDAO.findByUsername(username); // Use the DAO layer to fetch user by username
+    }
+    
+    @Transactional
+    @Override
+    public User getUserByEmail(String email) {
+        return userDAO.findByEmail(email); // Use the DAO layer to fetch user by email
+    }
 }
